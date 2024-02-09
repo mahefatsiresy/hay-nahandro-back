@@ -3,12 +3,6 @@ from django.db import models
 # Create your models here.
 
 
-class Recipe(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    images = models.CharField(max_length=255)
-
-
 class IngredientType(models.Model):
     name = models.CharField(max_length=100)
 
@@ -24,3 +18,19 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Recipe(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    images = models.CharField(max_length=255)
+    ingredients = models.ManyToManyField(Ingredient, through="IngredientQuantity")
+
+    def __str__(self):
+        return self.name
+
+
+class IngredientQuantity(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.CharField(max_length=100)
