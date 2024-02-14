@@ -1,16 +1,13 @@
-from django.urls import path
-from rest_framework.routers import format_suffix_patterns
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
+router = DefaultRouter()
+router.register(r'recipes', viewset=views.RecipeViewSet)
+router.register(r'ingredients', viewset=views.IngredientViewSet)
+router.register(r'ingredient-types', viewset=views.IngredientTypeViewSet)
 
 urlpatterns = [
-    path("", views.RecipeList.as_view()),
-    path("<int:pk>/", views.RecipeDetail.as_view()),
-    path("ingredients/", views.IngredientList.as_view()),
-    path("ingredients/<int:pk>/", views.IngredientDetail.as_view()),
-    path("ingredient-types/", views.IngredientTypeList.as_view()),
-    path("ingredient-types/<int:pk>", views.IngredientTypeDetail.as_view()),
+    path("", include(router.urls))
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
