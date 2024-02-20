@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-vsjh*lc+l9$z7k-d86u4&c4&5*!r^r#xob4yqtwke2$d*xwjt_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Samy mametraka ny ip-any
+ALLOWED_HOSTS = ['192.168.88.17', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -131,3 +132,4 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.DjangoModelPermissions'
     ]
 }
+

@@ -23,7 +23,7 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    images = models.CharField(max_length=255)
+    images = models.TextField()
     ingredients = models.ManyToManyField(Ingredient, through="IngredientQuantity")
 
     def __str__(self):

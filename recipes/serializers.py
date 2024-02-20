@@ -28,7 +28,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     ingredients = IngredientQuantitySerializer(
-        source="ingredientquantity_set", many=True
+        source="ingredientquantity_set", many=True, read_only=True
     )
 
     class Meta:
