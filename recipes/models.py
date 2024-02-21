@@ -39,4 +39,4 @@ class IngredientQuantity(models.Model):
 
 class Image(models.Model):
     url = models.TextField()
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='images', on_delete=models.CASCADE)

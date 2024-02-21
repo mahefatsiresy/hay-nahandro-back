@@ -5,13 +5,13 @@ from .models import Image, Ingredient, IngredientQuantity, IngredientType, Recip
 class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model: Image
+        model = Image
         fields = "__all__"
 
 
 class IngredientQuantitySerializer(serializers.ModelSerializer):
 
-    # create a name field that is associated with the ingredient.name
+    # create a name field that is associated with the ingreient.name
     name = serializers.ReadOnlyField(source="ingredient.name")
 
     class Meta:
@@ -41,7 +41,11 @@ class RecipeSerializer(serializers.ModelSerializer):
         source="ingredientquantity_set", many=True, read_only=True
     )
 
-    images = ImageSerializer(many=True)
+    images = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='url'
+    )
 
     class Meta:
         model = Recipe
