@@ -1,5 +1,12 @@
 from rest_framework import serializers
-from .models import Ingredient, IngredientQuantity, IngredientType, Recipe
+from .models import Image, Ingredient, IngredientQuantity, IngredientType, Recipe
+
+
+class ImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model: Image
+        fields = "__all__"
 
 
 class IngredientQuantitySerializer(serializers.ModelSerializer):
@@ -33,6 +40,8 @@ class RecipeSerializer(serializers.ModelSerializer):
     ingredients = IngredientQuantitySerializer(
         source="ingredientquantity_set", many=True, read_only=True
     )
+
+    images = ImageSerializer(many=True)
 
     class Meta:
         model = Recipe

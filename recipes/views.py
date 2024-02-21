@@ -15,7 +15,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     and `delete` actions for recipe
     """
 
-    queryset = Recipe.objects.prefetch_related("ingredients").order_by("-created_at")
+    queryset = Recipe.objects.prefetch_related("ingredients").order_by("-created_at", "-id")
     serializer_class = RecipeSerializer
 
 

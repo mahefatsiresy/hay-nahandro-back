@@ -23,7 +23,7 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    images = models.TextField()
+    cover_image = models.TextField()
     created_at = models.DateField(default=timezone.now())
     ingredients = models.ManyToManyField(Ingredient, through="IngredientQuantity")
 
@@ -35,3 +35,8 @@ class IngredientQuantity(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.CharField(max_length=100)
+
+
+class Image(models.Model):
+    url = models.TextField()
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
