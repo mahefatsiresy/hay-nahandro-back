@@ -1,6 +1,10 @@
 from rest_framework import viewsets
 from .models import Ingredient, IngredientType, Recipe
-from .serializers import IngredientSerializer, IngredientTypeSerializer, RecipeSerializer
+from .serializers import (
+    IngredientSerializer,
+    IngredientTypeSerializer,
+    RecipeSerializer,
+)
 
 # Create your views here.
 
@@ -10,7 +14,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     This class provide `list`, `create`, `update`, `retreive`
     and `delete` actions for recipe
     """
-    queryset = Recipe.objects.prefetch_related('ingredients')
+
+    queryset = Recipe.objects.prefetch_related("ingredients").order_by("-created_at")
     serializer_class = RecipeSerializer
 
 

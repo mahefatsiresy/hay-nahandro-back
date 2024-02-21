@@ -1,6 +1,6 @@
+from datetime import date
 from django.db import models
-
-# Create your models here.
+from django.utils import timezone
 
 
 class IngredientType(models.Model):
@@ -24,6 +24,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     images = models.TextField()
+    created_at = models.DateField(default=timezone.now())
     ingredients = models.ManyToManyField(Ingredient, through="IngredientQuantity")
 
     def __str__(self):

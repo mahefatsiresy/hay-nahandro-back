@@ -4,11 +4,12 @@ from .models import Ingredient, IngredientQuantity, IngredientType, Recipe
 
 class IngredientQuantitySerializer(serializers.ModelSerializer):
 
-    name = serializers.ReadOnlyField(source='ingredient.name')
+    # create a name field that is associated with the ingredient.name
+    name = serializers.ReadOnlyField(source="ingredient.name")
 
     class Meta:
         model = IngredientQuantity
-        fields = ('name', 'quantity')
+        fields = ("name", "quantity")
 
 
 class IngredientTypeSerializer(serializers.ModelSerializer):
@@ -19,7 +20,6 @@ class IngredientTypeSerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    # ingredient_type = IngredientTypeSerializer()
 
     class Meta:
         model = Ingredient
@@ -27,6 +27,9 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
+    # return ingredient name with its quantity
+    # the source is from recipes.models.IngredientQuantity model
+    # read_only is set here for now to allow fast update during development
     ingredients = IngredientQuantitySerializer(
         source="ingredientquantity_set", many=True, read_only=True
     )
