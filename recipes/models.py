@@ -1,6 +1,5 @@
 from datetime import date
 from django.db import models
-from django.utils import timezone
 
 
 class IngredientType(models.Model):
@@ -24,7 +23,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     cover_image = models.TextField()
-    created_at = models.DateField(default=timezone.now())
+    created_at = models.DateField(default=date.today())
     ingredients = models.ManyToManyField(Ingredient, through="IngredientQuantity")
 
     def __str__(self):
@@ -40,3 +39,6 @@ class IngredientQuantity(models.Model):
 class Image(models.Model):
     url = models.TextField()
     recipe = models.ForeignKey(Recipe, related_name='images', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.url
