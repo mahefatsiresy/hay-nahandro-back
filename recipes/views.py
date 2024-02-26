@@ -6,8 +6,12 @@ from .serializers import (
     IngredientTypeSerializer,
     RecipeSerializer,
 )
+from rest_framework import status
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-# Create your views here.
+from .serializers import FileUploadSerializer
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -16,7 +20,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
     and `delete` actions for recipe
     """
 
-    queryset = Recipe.objects.prefetch_related("ingredients").order_by("-created_at", "-id")
+    queryset = Recipe.objects.prefetch_related("ingredients").order_by(
+        "-created_at", "-id"
+    )
     serializer_class = RecipeSerializer
 
 
@@ -29,6 +35,22 @@ class IngredientTypeViewSet(viewsets.ModelViewSet):
     queryset = IngredientType.objects.all()
     serializer_class = IngredientTypeSerializer
 
+
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
+
+
+class FileUploadAPIView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = FileUploadSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            # you can access the file like this from serializer
+            # uploaded_file = serializer.validated_data["file"]
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

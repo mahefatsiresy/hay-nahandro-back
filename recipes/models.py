@@ -38,7 +38,15 @@ class IngredientQuantity(models.Model):
 
 class Image(models.Model):
     url = models.TextField()
-    recipe = models.ForeignKey(Recipe, related_name='images', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name="images", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.url
+
+
+class UploadedFile(models.Model):
+    file = models.ImageField()
+    uploaded_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.uploaded_on.date()

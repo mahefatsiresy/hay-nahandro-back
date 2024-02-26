@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-vsjh*lc+l9$z7k-d86u4&c4&5*!r^r#xob4yqtwke2$d*xwjt_
 DEBUG = True
 
 # Samy mametraka ny ip-any
-ALLOWED_HOSTS = ['192.168.88.17', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -133,3 +132,6 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Image, Ingredient, IngredientQuantity, IngredientType, Recipe
+from .models import Image, Ingredient, IngredientQuantity, IngredientType, Recipe, UploadedFile
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -53,7 +53,6 @@ class RecipeSerializer(serializers.ModelSerializer):
         images_data = validated_data.pop("images")
         ingredients_data = validated_data.pop("ingredientquantity_set")
 
-        print(ingredients_data)
 
         recipe = Recipe.objects.create(**validated_data)
 
@@ -90,3 +89,9 @@ class RecipeSerializer(serializers.ModelSerializer):
     #         Image.objects.update(**image_data)
 
     #     return recipe
+
+
+class FileUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadedFile
+        fields = ('file', 'uploaded_on')
